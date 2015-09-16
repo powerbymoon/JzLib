@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@null"
+    android:orientation="vertical">
+
+    <com.example.administrator.jzlib.jzlib.Adapter.TabIconView
+        android:id="@+id/main_bottom_tab_icon"
+        android:layout_width="36dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/main_bottom_tab_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:textColor="@color/main_bottom_tab_textcolor_normal"
+        android:textSize="13sp"
+        />
+
+
+
+</LinearLayout>
+
