@@ -3,4 +3,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="demo_title_custom_tab_icons1">Custom Tab Icons 1</string>
+    <string name="demo_tab_no_title">No Title</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">登陆</string>
 </resources>

@@ -30,9 +30,9 @@ public class MainBottomTabLayout extends LinearLayout {
 
     private String mTitles[] = {"找书", "收藏", "个人"};
     private int mIconRes[][] = {
-            {R.drawable.ic_search_grey_500_36dp, R.drawable.ic_search_blue_200_36dp},
-            {R.drawable.ic_book_grey_500_36dp, R.drawable.ic_book_blue_200_36dp},
-            {R.drawable.ic_person_outline_grey_500_36dp, R.drawable.ic_person_blue_200_36dp},
+            {R.drawable.ic_search_grey_500_36dp, R.drawable.ic_search_black_36dp},
+            {R.drawable.ic_star_outline_grey_500_36dp, R.drawable.ic_star_black_36dp},
+            {R.drawable.ic_person_outline_grey_500_36dp, R.drawable.ic_person_black_36dp},
 
     };
 

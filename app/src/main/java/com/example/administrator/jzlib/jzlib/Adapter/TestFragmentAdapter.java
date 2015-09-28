@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.administrator.jzlib.jzlib.Fragment.CollectionFragment;
 import com.example.administrator.jzlib.jzlib.Fragment.FindFragment;
+import com.example.administrator.jzlib.jzlib.Fragment.LoginSuccessProfileFragment;
+import com.example.administrator.jzlib.jzlib.Fragment.PersonalFragment;
+import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
 
 /**
  * Created by wuyexiong on 4/25/15.
@@ -29,7 +32,16 @@ public class TestFragmentAdapter extends FragmentPagerAdapter {
         {
             return new CollectionFragment();
         }
-        return new Fragment();
+        else if(s.equals("personal")){
+            if(GlobleAtrr.flag)
+            {
+                return new LoginSuccessProfileFragment();
+            }
+            else{
+            return new PersonalFragment();
+            }
+        }
+        else return new PersonalFragment();
     }
 
     @Override

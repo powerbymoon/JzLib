@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_rl_top"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp">
+
+    <RelativeLayout
+        android:id="@+id/message_ll_l1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </RelativeLayout>
+
+
+
+
+    <TextView
+        android:id="@+id/message_tv_Callno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:padding="3dp"
+        android:text="xuliehao"
+        android:textSize="16dp"
+     android:layout_below="@+id/message_tv_bookname"
+
+       />
+
+    <TextView
+        android:id="@+id/message_tv_Anthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_tv_Callno"
+
+        android:text="kejie"
+        android:padding="3dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/message_tv_bookname"
+      android:padding="3dp"
+
+     />
+
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messgae_iv_star"
+        android:background="@drawable/ic_shoucan_selector"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentRight="true"
+     />
+
+
+</RelativeLayout>
+
+
+
+

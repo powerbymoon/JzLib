@@ -1,5 +1,6 @@
 package com.example.administrator.jzlib.jzlib.Activity;
 
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,8 @@ import com.example.administrator.jzlib.jzlib.Adapter.MainBottomTabLayout;
 import com.example.administrator.jzlib.jzlib.Adapter.TestFragmentAdapter;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
 
+import net.tsz.afinal.FinalDb;
+
 public class MainActivity extends ActionBarActivity {
 
     long exitTime=0;
@@ -24,34 +27,27 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         GlobleAtrr.a=this;
-
+        GlobleAtrr.db=FinalDb.create(this);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -63,19 +59,19 @@ public class MainActivity extends ActionBarActivity {
         private TestFragmentAdapter mAdapter;
         private ViewPager mPager;
         private MainBottomTabLayout mTabLayout;
-
+        View rootView;
         public PlaceholderFragment() {
         }
-
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            rootView = inflater.inflate(R.layout.fragment_main, container, false);
             setupViews(rootView);
             return rootView;
         }
+
+
 
         private void setupViews(View view) {
             mAdapter = new TestFragmentAdapter(getFragmentManager());

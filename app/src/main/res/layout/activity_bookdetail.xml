@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/ic_more_horiz_blue_grey_600_48dp"
+        android:layout_above="@+id/shuming"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/shuming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="14dp"
+        android:textSize="28dip"
+      android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/jianjietext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="TextView"
+        android:textSize="18dip"
+        android:padding="14dp"
+        android:layout_below="@+id/shuming"
+        android:layout_gravity="center_horizontal"
+        android:scrollbars = "vertical"/>
+
+</LinearLayout>
