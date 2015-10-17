@@ -4,5 +4,30 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+    <style name="LeBubbleTextView">
+        <item name="bubbleBackgroundColor">@color/bubbleView_dark_background</item>
+        <item name="bubbleTextColor">@color/bubbleView_dark_text_color</item>
+        <item name="bubbleCornerRadius">@dimen/bubbleView_default_radius</item>
+        <item name="bubbleTextSize">@dimen/bubbleView_default_text_size</item>
+        <item name="bubbleBackgroundPressColor">@color/bubbleView_dark_press_background</item>
+    </style>
 
+    <style name="LeBubbleTextView.Light">
+        <item name="bubbleBackgroundColor">@color/bubbleView_light_background</item>
+        <item name="bubbleTextColor">@color/bubbleView_light_text_color</item>
+        <item name="bubbleBackgroundPressColor">@color/bubbleView_light_press_background</item>
+    </style>
+    <style name="LeBubbleTextView.Dark">
+        <item name="bubbleBackgroundColor">@color/bubbleView_dark_background</item>
+        <item name="bubbleTextColor">@color/bubbleView_dark_text_color</item>
+        <item name="bubbleBackgroundPressColor">@color/bubbleView_dark_press_background</item>
+    </style>
+    <style name="carddemo_default_container_padding">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:paddingLeft">@dimen/carddemo_keyline_1_minus_8dp</item>
+        <item name="android:paddingRight">@dimen/carddemo_keyline_1_minus_8dp</item>
+        <item name="android:paddingTop">@dimen/carddemo_keyline_1_minus_8dp</item>
+        <item name="android:paddingBottom">@dimen/carddemo_keyline_1_minus_8dp</item>
+    </style>
 </resources>

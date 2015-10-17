@@ -4,8 +4,8 @@
     <item
         android:id="@+id/action_search"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_search_white_48dp"
+        android:icon="@drawable/ic_search_black_48dp"
         android:title="(＞﹏＜)Hi，我是一颗多余的按钮"
-
         app:showAsAction="ifRoom|withText"/>
+
 </menu>

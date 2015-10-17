@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="main_bottom_tab_textcolor_normal">#999999</color>
-    <color name="main_bottom_tab_textcolor_selected">#90CAF9</color>
+    <color name="main_bottom_tab_textcolor_selected">#18b5ea</color>
+    <color name="footbar">#ffffff</color>
+    <color name="titlebar">#f2f2f2</color>
+    <color name="transparent">#00000000</color>
+    <color name="icon_enabled">#18b5ea</color>
+    <color name="icon_disabled">#d0d0d0</color>
+    <!-- Background color for light LeBubbleView. -->
+    <color name="bubbleView_light_background">#CCFFFFFF</color>
+    <!-- Background color for dark LeBubbleView. -->
+    <color name="bubbleView_dark_background">#B3000000</color>
+    <!-- text color for light LeBubbleTextView. -->
+    <color name="bubbleView_light_text_color">#CC323C49</color>
+    <!-- text color for dark LeBubbleTextView. -->
+    <color name="bubbleView_dark_text_color">#CCFFFFFF</color>
+    <!-- press Background color for light LeBubbleView. -->
+    <color name="bubbleView_light_press_background">#E6FFFFFF</color>
+    <!-- press Background color for dark LeBubbleView. -->
+    <color name="bubbleView_dark_press_background">#CC000000</color>
+
+    <color name="demo_card_background_color1">#ed5565</color>
+    <color name="demo_card_background_color2">#ffce54</color>
+    <color name="demo_card_background_color3">#48efad</color>
+    <color name="demo_card_background_color4">#5d9cec</color>
+    <color name="demo_card_background_color5">#ec87c0</color>
+    <color name="demo_card_background_color6">#fc6e51</color>
+    <color name="demo_card_background_color7">#a0d468</color>
+    <color name="demo_card_background_color8">#4fc1e9</color>
+    <color name="demo_card_background_color9">#ac92ec</color>
+    <color name="demo_card_background_color10">#ccd1d9</color>
 </resources>

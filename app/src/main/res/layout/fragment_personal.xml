@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<include layout="@layout/title_bar"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#10000000"
+
+        />
+    <ScrollView
+        android:id="@+id/card_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/carddemo_default_container_padding">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- Expand card with button-->
+            <it.gmariotti.cardslib.library.view.CardView
+                android:id="@+id/personal_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"/>
+            <!-- Expand card with all card-->
+            <it.gmariotti.cardslib.library.view.CardView
+                android:id="@+id/classfy_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"/>
+
+            <!-- Expand a card with collpse section inside -->
+
+
+
+
+            <!-- Expand card with all card-->
+
+
+
+
+            <it.gmariotti.cardslib.library.view.CardView
+                android:id="@+id/gonggao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"/>
+
+            <!-- Expand by clicking the text -->
+
+            <it.gmariotti.cardslib.library.view.CardView
+                android:id="@+id/buju"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                />
+
+            <!-- Expand by clicking the image -->
+
+            <it.gmariotti.cardslib.library.view.CardView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                card:card_layout_resourceID="@layout/card_thumbnail_layout"
+                android:layout_marginTop="12dp"/>
+
+
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
