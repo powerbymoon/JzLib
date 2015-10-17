@@ -3,6 +3,7 @@ package com.example.administrator.jzlib.jzlib.Activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -13,7 +14,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,23 +22,21 @@ import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.example.administrator.jzlib.R;
 import com.example.administrator.jzlib.jzlib.Been.StudentInfo;
+import com.example.administrator.jzlib.jzlib.Dialog.PersonalDemo;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleMeth;
 import com.example.administrator.jzlib.jzlib.Util.JsoupUtil;
+import com.gc.materialdesign.views.CheckBox;
 
 
 import org.apache.http.*;
 
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-
-
 import java.util.HashMap;
 import java.util.Map;
-
-
-
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -48,9 +46,12 @@ public class LoginActivity extends AppCompatActivity {
         private CircularProgressButton loginButton;
         private EditText loginNumber;
         private EditText loginKey;
-        private CheckBox recd;
+       private CheckBox reck;
        // private ProgressDialog mypDialog;
         private Map<String,String> map = new HashMap<String,String>();
+    SharedPreferences account;
+    SharedPreferences isCheck;
+    //String user = pre.getString("number", "");
 
         @Override
         protected void onCreate(Bundle savedInstanceState)
@@ -85,13 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                     );
 
         }
-
-
         class  InitCaptcha extends AsyncTask<String,String, Bitmap> {
             @Override
             protected void onPreExecute() {
                 // TODO Auto-generated method stub
-                System.out.println("onPreExecute");
+               // System.out.println("onPreExecute");
                 super.onPreExecute();
             }
             @Override
@@ -119,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                 HttpResponse httpResponse = GlobleAtrr.client.execute(httpPost);
 
                 if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                   // GlobleData.cookies = ((AbstractHttpClient) GlobleData.client).getCookieStore().getCookies().get(0).getValue();
+                    GlobleAtrr.cookies = ((AbstractHttpClient) GlobleAtrr.client).getCookieStore().getCookies().get(0).getValue();
                     byte[] bytes = EntityUtils.toByteArray(httpResponse.getEntity());
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 }else{
@@ -139,6 +138,22 @@ public class LoginActivity extends AppCompatActivity {
             captcha = (EditText) findViewById(R.id.login_et_captcha);
             loginNumber = (EditText) findViewById(R.id.login_et_phone);
             loginKey = (EditText) findViewById(R.id.login_et_code);
+            account= getSharedPreferences("account", MODE_APPEND);
+            isCheck= getSharedPreferences("isCheck", MODE_APPEND);
+            reck = (CheckBox) findViewById(R.id.checkBox);
+            //reck.setChecked(true);
+            if(isCheck!=null&&isCheck.getString("fg","").equals("1"))
+            {
+              //  GlobleMeth.showToast(this,"1234567890");
+                reck.setChecked(true);
+               // reck.setChecked(true);
+               // reck.set
+            }
+            if (account!=null&&!account.getString("loginNumber","").isEmpty())
+            {
+                loginNumber.setText(account.getString("loginNumber",""));
+                loginKey.setText(account.getString("password",""));
+            }
             loginNumber.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
@@ -160,20 +175,39 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     loginButton.setProgress(50);
+                    // TODO Auto-generated method stub
                     String number = loginNumber.getText().toString();
                     String passwd = loginKey.getText().toString();
                     String scaptcha = captcha.getText().toString();
                     //map.put("captcha",scaptcha);
+                    SharedPreferences.Editor edit = account.edit();
+                    SharedPreferences.Editor edit1=isCheck.edit();
+                    if(reck.isCheck()){
+
+                        //String user = pre.getString("number", "");
+                      //  SharedPreferences.Editor edit1=isCheck.edit();
+                        edit1.putString("fg","1");
+                        edit1.commit();
+
+                        edit.putString("loginNumber", number);
+                        edit.putString("password", passwd);
+                        edit.commit();
+                    }
+                    else{
+                        edit1.clear();
+                        edit.clear();
+                        edit1.commit();
+                        edit.commit();
+                    }
                     map.put("number",number);
                     map.put("passwd",passwd);
                     map.put("captcha",scaptcha);
                     map.put("select","cert_no");
                     map.put("returnUrl",null);
-                    GlobleMeth.showToast(getApplication(),map.get("number"));
-                    GlobleMeth.showToast(getApplication(),map.get("passwd"));
-                    GlobleMeth.showToast(getApplication(),map.get("captcha"));
+                   // GlobleMeth.showToast(getApplication(),map.get("number"));
+                   // GlobleMeth.showToast(getApplication(),map.get("passwd"));
+                   // GlobleMeth.showToast(getApplication(),map.get("captcha"));
                     Login login = new Login();
                     login.execute(map);
                 }
@@ -184,12 +218,14 @@ public class LoginActivity extends AppCompatActivity {
             protected void onPreExecute() {
                 // TODO Auto-generated method stub
                // mypDialog.show();
+
                 super.onPreExecute();
             }
 
             @Override
             protected void onProgressUpdate(Integer... values) {
                 // TODO Auto-generated method stub
+             //   loginButton.setProgress(50);
                 super.onProgressUpdate(values);
             }
             @Override
@@ -202,23 +238,29 @@ public class LoginActivity extends AppCompatActivity {
             protected void onPostExecute(Boolean result) {
                 // TODO Auto-generated method stub
                // mypDialog.cancel();
-                if (result) {
-                    loginButton.setProgress(100);
-                    GlobleAtrr.flag = true;
-                    GlobleMeth.showToast(getApplication(), StudentInfo.name);
-                    //Intent i = new Intent();
-                    //i.setClass(getApplicationContext(),MainActivity.class);
 
-                   // LoginActivity.this.setResult(RESULT_OK, i);   //RESULT_OK是返回状态码
-                    LoginActivity.this.finish();
-                    // Intent i = new Intent();
-                   // i.setClass(getApplicationContext(), StartActivity.class);
-                   // LoginActivity.this.setResult(RESULT_OK, i);   //RESULT_OK是返回状态码
-                  //  LoginActivity.this.finish();
-                    map.clear();
+                if (result) {
+                    GlobleAtrr.isLogin = true;
+                    //loginButton.setProgress(50);
+                    loginButton.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent();
+                            i.setClass(getApplicationContext(),PersonalActivity.class);
+                            startActivity(i);
+                            LoginActivity.this.finish();
+                        }
+                    }, 1800);
+                    loginButton.setProgress(100);
                 } else {
                     loginButton.setProgress(-1);
-                    GlobleMeth.showToast(getApplicationContext(), "请检查是否输入有误");
+                    loginButton.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loginButton.setProgress(0);
+                        }
+                    }, 1200);
+                  //  GlobleMeth.showToast(getApplicationContext(), "请检查是否输入有误");
                 }
                 super.onPostExecute(result);
             }

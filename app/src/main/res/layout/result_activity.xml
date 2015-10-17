@@ -11,6 +11,12 @@
 
         <include layout="@layout/find_title"
             />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#10000000"
+
+               />
             <it.gmariotti.cardslib.library.view.CardListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

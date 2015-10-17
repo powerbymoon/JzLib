@@ -16,9 +16,17 @@ import android.widget.Toast;
 import com.example.administrator.jzlib.R;
 import com.example.administrator.jzlib.jzlib.Adapter.MainBottomTabLayout;
 import com.example.administrator.jzlib.jzlib.Adapter.TestFragmentAdapter;
+import com.example.administrator.jzlib.jzlib.Fragment.CollectionFragment;
+import com.example.administrator.jzlib.jzlib.Fragment.FindFragment;
+import com.example.administrator.jzlib.jzlib.Fragment.PersonalFragment;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
 
 import net.tsz.afinal.FinalDb;
+
+import org.kymjs.kjframe.KJDB;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -28,6 +36,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         GlobleAtrr.a=this;
         GlobleAtrr.db=FinalDb.create(this);
+        GlobleAtrr.love_db= KJDB.create(this);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -46,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
     }
@@ -55,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-
+        private List<Fragment> mFragmentList = new ArrayList<Fragment>();
         private TestFragmentAdapter mAdapter;
         private ViewPager mPager;
         private MainBottomTabLayout mTabLayout;
@@ -74,7 +83,11 @@ public class MainActivity extends ActionBarActivity {
 
 
         private void setupViews(View view) {
-            mAdapter = new TestFragmentAdapter(getFragmentManager());
+            mFragmentList.add(new FindFragment());
+            mFragmentList.add(new CollectionFragment());
+            mFragmentList.add(new PersonalFragment());
+
+            mAdapter = new TestFragmentAdapter(this.getFragmentManager(),mFragmentList);
             mPager = (ViewPager) view.findViewById(R.id.tab_pager);
             mPager.setAdapter(mAdapter);
             mTabLayout = (MainBottomTabLayout) view.findViewById(R.id.main_bottom_tablayout);

@@ -83,14 +83,11 @@ public class MainBottomTabLayout extends LinearLayout {
             if (tabView == null) {
                 throw new IllegalStateException("tabView is null.");
             }
-
             LayoutParams lp = (LayoutParams) tabView.getLayoutParams();
             lp.width = 0;
             lp.weight = 1;
-
             tabView.setOnClickListener(tabClickListener);
             addView(tabView);
-
             if (i == mViewPager.getCurrentItem()) {
                 iconView.transformPage(0);
                 tabView.setSelected(true);
@@ -105,7 +102,6 @@ public class MainBottomTabLayout extends LinearLayout {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             onViewPagerPageChanged(position, positionOffset);
-
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
@@ -113,23 +109,18 @@ public class MainBottomTabLayout extends LinearLayout {
 
         @Override
         public void onPageSelected(int position) {
-
             for (int i = 0; i < getChildCount(); i++) {
                 ((TabIconView) mIconLayouts[i].findViewById(R.id.main_bottom_tab_icon))
                         .transformPage(position == i ? 0 : 1);
                 ((TextView) mIconLayouts[i].findViewById(R.id.main_bottom_tab_text))
                         .setTextColor(position == i ? mTextSelectedColor : mTextNormalColor);
             }
-
             if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
                 onViewPagerPageChanged(position, 0f);
             }
-
             for (int i = 0, size = getChildCount(); i < size; i++) {
                 getChildAt(i).setSelected(position == i);
             }
-
-
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageSelected(position);
             }
@@ -138,7 +129,6 @@ public class MainBottomTabLayout extends LinearLayout {
         @Override
         public void onPageScrollStateChanged(int state) {
             mScrollState = state;
-
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageScrollStateChanged(state);
             }

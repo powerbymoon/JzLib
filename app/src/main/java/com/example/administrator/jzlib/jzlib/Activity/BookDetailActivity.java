@@ -72,7 +72,8 @@ public class BookDetailActivity extends FinalActivity {
             // TODO Auto-generated method stub
             if(GlobleAtrr.no){
             }
-            else{
+
+            else if(result!=null&&result.size()!=0){
                 shuming.setText(result.get(0).get("shuming").toString());
                 jianjie.setText(result.get(0).get("jianjie").toString());
                 jianjie.setMovementMethod(new ScrollingMovementMethod());

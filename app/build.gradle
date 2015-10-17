@@ -57,4 +57,5 @@ dependencies {
     compile 'com.github.rey5137:material:1.2.1'
     compile files('libs/httpclient-4.2.2.jar')
     compile files('libs/httpcore-4.2.2.jar')
+    compile 'org.kymjs.kjframe:kjframe:2.5.1'
 }

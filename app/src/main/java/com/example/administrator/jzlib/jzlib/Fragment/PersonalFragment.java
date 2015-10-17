@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.example.administrator.jzlib.R;
 import com.example.administrator.jzlib.jzlib.Activity.LoginActivity;
 
+import com.example.administrator.jzlib.jzlib.Activity.NativeListColorActivity;
+import com.example.administrator.jzlib.jzlib.Activity.PersonalActivity;
 import com.example.administrator.jzlib.jzlib.Been.CustomCard;
 import com.example.administrator.jzlib.jzlib.Been.Personal_Card;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
@@ -45,25 +47,27 @@ import it.gmariotti.cardslib.library.view.CardView;
 public class PersonalFragment extends Fragment {
 
     ScrollView mScrollView;
-
+    View root;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root= inflater.inflate(R.layout.fragment_personal, container, false);
-        mScrollView = (ScrollView) root.findViewById(R.id.card_scrollview);
+        root= inflater.inflate(R.layout.fragment_personal, container, false);
+        mScrollView = (ScrollView) root.findViewById(R.id.card_scrollview);TextView tv=(TextView)root.findViewById(R.id.activity_tv_title);
+        tv.setText("更多");
+
+        initCards();
         return root;
     }
 
-    @Override
+   /* @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initCards();
-    }
-
+    }*/
 
     private void initCards() {
         init_standard_header_with_expandcollapse_button();
         init_custom_card_expand();
-        init_custom_card_expand_clicking_text();
+
         init_custom_card_expand_clicking_image();
         init_custom_card_expand_inside();
         init_custom_card_expand_programmatic();
@@ -76,18 +80,26 @@ public class PersonalFragment extends Fragment {
     private void init_standard_header_with_expandcollapse_button() {
 
         //Create a Card
-        Personal_Card card0 = new Personal_Card(getActivity(),R.layout.personal_card_layout);
+        Personal_Card card0 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
         card0.setName("个人信息");
         Drawable dra=getResources().getDrawable(R.drawable.ic_account_circle_blue_200_48dp);
         card0.setDraw(dra);
-        CardView cardView = (CardView) getActivity().findViewById(R.id.personal_card);
+        CardView cardView = (CardView) root.findViewById(R.id.personal_card);
         cardView.setCard(card0);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Intent intent=new Intent();
-                intent.setClass(getActivity(),LoginActivity.class);
-                startActivity(intent);
+                if(GlobleAtrr.isLogin)
+                {
+                    Intent intent = new Intent();
+                    intent.setClass(GlobleAtrr.a,PersonalActivity.class);
+                    startActivity(intent);
+                }
+             else {
+                    Intent intent = new Intent();
+                    intent.setClass(GlobleAtrr.a, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -97,17 +109,17 @@ public class PersonalFragment extends Fragment {
      */
     private void init_custom_card_expand() {
         //Create a Card
-        Personal_Card card1 = new Personal_Card(getActivity(),R.layout.personal_card_layout);
+        Personal_Card card1 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
         card1.setName("分类浏览");
         Drawable dra=getResources().getDrawable(R.drawable.ic_dashboard_green_300_48dp);
         card1.setDraw(dra);
-        CardView cardView = (CardView) getActivity().findViewById(R.id.classfy_card);
+        CardView cardView = (CardView) root.findViewById(R.id.classfy_card);
         cardView.setCard(card1);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
-                intent.setClass(getActivity(),LoginActivity.class);
+                intent.setClass(GlobleAtrr.a,NativeListColorActivity.class);
                 startActivity(intent);
             }
         });
@@ -118,37 +130,27 @@ public class PersonalFragment extends Fragment {
     /**
      * This method builds a custom card with expand/collapse action clickable in all card view
      */
-    private void init_custom_card_expand_clicking_text() {
-        //Create a Card
-        Personal_Card card1 = new Personal_Card(getActivity(),R.layout.personal_card_layout);
-        card1.setName("热门借阅");
-        Drawable dra=getResources().getDrawable(R.drawable.ic_book_red_200_48dp);
-        card1.setDraw(dra);
-        CardView cardView = (CardView) getActivity().findViewById(R.id.hotbook);
-        cardView.setCard(card1);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+
     /**
      * This method builds a custom card with expand/collapse action clickable in all card view
      */
     private void init_custom_card_expand_clicking_image() {
         //Create a Card
-        Personal_Card card1 = new Personal_Card(getActivity(),R.layout.personal_card_layout);
-        card1.setName("管藏布局");
+        Personal_Card card1 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
+        card1.setName("管藏分布");
         Drawable dra=getResources().getDrawable(R.drawable.ic_view_quilt_brown_100_48dp);
         card1.setDraw(dra);
-        CardExpand expand = new CardExpand(getActivity());
-        //Set inner title in Expand Area
-        expand.setTitle("wdnsdlkvmdslvmls");
+        CardExpand expand = new CardExpand(GlobleAtrr.a);
+        //Set inner title in Expand Area;
+        expand.setTitle(
+                "一楼：" + " 总借还台、咖啡厅、书目检索区、编目部、自习区\n" + " \n" +
+                        "二楼:" + " B区外文和港台图书阅览区、" + "馆长室、贵宾室、馆办公室、C区理科图书阅览区\n" + " \n" +
+                        "三楼:" + " 文科图书阅览区（中文图书A——H类）\n" + " \n" +
+                        "四楼:" + " 文科图书阅览区（中文图书I——K类）、副馆长室\n" + " \n" +
+                        "五楼:" + " 电子文献阅览区\n" + " \n" +
+                        "六楼:" + " 期刊和报纸阅览区\n" );
         card1.addCardExpand(expand);
-        CardView cardView = (CardView) getActivity().findViewById(R.id.buju);
+        CardView cardView = (CardView) root.findViewById(R.id.buju);
         ViewToClickToExpand viewToClickToExpand =
                 ViewToClickToExpand.builder()
                         .setupView(cardView);
@@ -160,31 +162,43 @@ public class PersonalFragment extends Fragment {
      * This method builds a card with a collpse/expand section inside
      */
     private void init_custom_card_expand_inside() {
-        Personal_Card card1 = new Personal_Card(getActivity(),R.layout.personal_card_layout);
-        card1.setName("本馆公告");
+        Personal_Card card1 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
+        card1.setName("开馆时间");
         Drawable dra=getResources().getDrawable(R.drawable.ic_message_black_48dp);
         card1.setDraw(dra);
-        CardView cardView = (CardView) getActivity().findViewById(R.id.gonggao);
+        CardExpand expand = new CardExpand(GlobleAtrr.a);
+        expand.setTitle("周一至周日:\n" +
+                        "一层自习区 " + " 07:30-22:30\n" +"\n"+
+                "周一至周六:\n" +
+                "一层总借还台 " + " 09:30-19:30\n" +
+                "三层阅览区 " + " 08:30-22:00\n" +
+                "四层阅览区 " + " 09:30-21:30\n" +"\n"+
+
+                "周一至周五、周日:\n" +
+                "二层阅览区 " + " 08:30-22:00\n" +
+                "五层阅览区 " + " 09:30-21:30\n" +
+                "六层阅览区 " + " 09:30-21:30\n"
+
+               );
+        card1.addCardExpand(expand);
+        CardView cardView = (CardView)root.findViewById(R.id.gonggao);
+        ViewToClickToExpand viewToClickToExpand =
+                ViewToClickToExpand.builder()
+                        .setupView(cardView);
+        card1.setViewToClickToExpand(viewToClickToExpand);
         cardView.setCard(card1);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void init_custom_card_expand_programmatic() {
-        Personal_Card card1 = new Personal_Card(getActivity(),R.layout.personal_card_layout);
+        Personal_Card card1 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
         card1.setName("关于");
         Drawable dra=getResources().getDrawable(R.drawable.ic_info_deep_purple_200_48dp);
         card1.setDraw(dra);
-        CardExpand expand = new CardExpand(getActivity());
-        expand.setTitle("wdnsdlkvmdslvmls");
+        CardExpand expand = new CardExpand(GlobleAtrr.a);
+        expand.setTitle("作者：Moon\n" +
+                "如有任何意见或建议，欢迎致邮：916012040@qq.com");
         card1.addCardExpand(expand);
-        CardView cardView = (CardView) getActivity().findViewById(R.id.about);
+        CardView cardView = (CardView)root.findViewById(R.id.about);
         ViewToClickToExpand viewToClickToExpand =
                 ViewToClickToExpand.builder()
                         .setupView(cardView);

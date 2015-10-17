@@ -51,7 +51,7 @@ public class JsoupUtil {
         Document doc;
         try {
             // 通过Jsoup的connect（）方法，将html转化成Document
-            doc = Jsoup.connect(html).timeout(30 * 1000).get();
+            doc = Jsoup.connect(html).timeout(30 * 100000).get();
             // Log.d("注意啦2",doc.toString());
             // 判断“本馆没有您检索的纸本馆藏书目”
             String err = doc.select("p[style=font-size:14px; margin:5px 0 20px 10px;]").
@@ -223,7 +223,7 @@ public class JsoupUtil {
             //if (response.getStatusLine().getStatusCode() == 200) {
             //状态码
             String result = EntityUtils.toString(response.getEntity(), "utf-8");
-            Log.d("DEBUG", "获取html成功" + result);
+          //  Log.d("DEBUG", "获取html成功" + result);
 
             //HttpEntity entity = response.getEntity();
             //StringBuffer sb = new StringBuffer();
@@ -396,5 +396,119 @@ public class JsoupUtil {
             return false;
         }
 
+    }
+
+    public static List<Map<String, Object>> getBorrowedBook() {
+            List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+            Map<String, Object> bookMap;
+            try {
+                Document doc = Jsoup.connect("http://opac.jluzh.com/reader/book_lst.php")
+                        .cookie("PHPSESSID", GlobleAtrr.cookies)
+                        .timeout(30 * 1000).get();
+                String err = doc.select("strong[class=iconerr]").text().toString();
+                if (err.equals("您的该项记录为空！"))
+                    return null;
+                //doc.select("table[width=100% border=0 cellpadding=5 cellspacing=1 bgcolor=#CCCCCC class=table_line]").
+                //select("tr").text().toString();
+
+
+                //String e1=doc.select("table").select("tr").text().toString();
+                //Log.d("DEBUG", "熊出没 注意"+e1);
+                Elements es= doc.select("table[width=100%]").select("tr");
+                Iterator<Element> book = es.iterator();
+                book.next();
+                while (book.hasNext()) {
+                    Element e = book.next();
+                    bookMap = new HashMap<String, Object>();
+                    Elements bookInfo = e.select("td");
+                    // System.out.println(bookInfo.toString());
+                    for (int i = 0; i < bookInfo.size(); i++) {
+                        // System.out.println(bookInfo.get(i).text());
+                        switch (i) {
+                            case 0:
+                                //bookMap.put("barcode", bookInfo.get(i).text());
+                                break;
+                            case 1:
+                                bookMap.put("booktitle", bookInfo.get(i).text());
+                                break;
+                            case 2:
+                                bookMap.put("borrowedDate", bookInfo.get(i).text());
+                                break;
+                            case 3:
+                                bookMap.put("paybackDate", bookInfo.get(i).text());
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    list.add(bookMap);
+                }
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return list;
+        }
+
+    public static Map<String,String> getPic(String html) {
+        Map<String,String> map = new HashMap<String,String>();
+        String s="",name;
+        Document doc;
+        String s1="";
+        try {
+            doc = Jsoup.connect(html).timeout(30 * 1000).get();
+            Elements em = doc.select("div[class=pt_border]");
+            //<li><a href="http://book.douban.com/isbn/7-100-00904-9/" target="_blank">
+            s = em.select("img").attr("src").toString();
+            name=em.select("img").attr("title").toString();
+            s1=s.replaceAll("small","");
+
+            map.put("url",s1);
+            map.put("althor",name);
+        } catch (IOException e) {
+            // 解析失败！
+            e.printStackTrace();
+            System.out.println("Failed to Parse!");
+        }
+        return map;
+    }
+
+    public static String getArt_url(String html) {
+        String s="";
+        Document doc;
+        try {
+            doc = Jsoup.connect(html).timeout(30 * 1000).get();
+            //<div class="articleCell SG_j_linedot1">
+            Elements em = doc.select("div[class=articleCell SG_j_linedot1]");
+            //<li><a href="http://book.douban.com/isbn/7-100-00904-9/" target="_blank">
+            s = em.select("a").attr("href").toString();
+
+
+        } catch (IOException e) {
+            // 解析失败！
+            e.printStackTrace();
+            System.out.println("Failed to Parse!");
+        }
+        return s;
+    }
+
+    public static String loadArt(String html) {
+        String s="";
+        Document doc;
+        try {
+            doc = Jsoup.connect(html).timeout(30 * 1000).get();
+            Elements em = doc.select("div[class=content b-txt1]");
+            s = em.text().toString();
+        } catch (IOException e) {
+            // 解析失败！
+            e.printStackTrace();
+            System.out.println("Failed to Parse!");
+        }
+        return s;
     }
 }

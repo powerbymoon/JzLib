@@ -29,6 +29,14 @@
             android:name=".jzlib.Activity.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name=".jzlib.Activity.PersonalActivity"
+            android:label="@string/title_activity_personal" >
+        </activity>
+        <activity
+            android:name=".jzlib.Activity.NativeListColorActivity"
+            android:label="@string/title_activity_native_list_color" >
+        </activity>
     </application>
 
 </manifest>

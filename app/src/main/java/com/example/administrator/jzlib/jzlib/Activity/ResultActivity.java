@@ -136,11 +136,13 @@ public class ResultActivity extends ActionBarActivity{
             @Override
             public void onSearchOpened() {
                 // Use this to tint the screen
+                toolbar.setVisibility(View.GONE);
             }
             @Override
             public void onSearchClosed() {
                 // Use this to un-tint the screen
                 closeSearch();
+                toolbar.setVisibility(View.VISIBLE);
             }
             @Override
             public void onSearchTermChanged() {
@@ -291,6 +293,8 @@ public class ResultActivity extends ActionBarActivity{
         protected void onPostExecute(String result) {
             // TODO Auto-genera
             pDialog.cancel();
+           // String s=result.substring(0,27);
+            //Log.d("sub",s);
             if (result.equals("http://book.douban.com/isbn//")) {
                 Toast.makeText(getApplicationContext(), "抱歉！本书没有详细信息。",
                         Toast.LENGTH_SHORT).show();
