@@ -29,6 +29,8 @@
         android:background="@drawable/pic"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

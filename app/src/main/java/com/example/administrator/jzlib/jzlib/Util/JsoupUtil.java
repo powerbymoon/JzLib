@@ -511,4 +511,62 @@ public class JsoupUtil {
         }
         return s;
     }
+
+    public static List<Map<String, Object>> searchBook_clasify(String html) {
+
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        Map<String, Object> bookMap;
+
+        Document doc;
+        try {
+            // 通过Jsoup的connect（）方法，将html转化成Document
+            doc = Jsoup.connect(html).timeout(30 * 1000).get();
+            System.out.println("Success to parse!");
+            // System.out.println(doc);
+            //<table width="100%"
+            Elements books = doc.select("table[width=100%]").select("tr");
+            Iterator<Element> book = books.iterator();
+            Element em = book.next();
+            while (book.hasNext()) {
+                em = book.next();
+                System.out.println(em.text());
+                // 这里的bookMap每次都要实例化一个，否则将会出现所有的内容都是最后一条的内容
+                bookMap = new HashMap<String, Object>();
+                // 经过多次验证，用Element(s)的text（）方法输出不带原来html的标签，而用toString的方法则会带标签
+                // 用html（）方法得到标签括起来的内容
+                // 解析图书部分内容
+
+
+                Elements bookInfo = em.select("td");
+                //int totalTds = bookInfo.size();
+                for (int j = 0; j < 5; j++) {
+                    switch (j) {
+                        case 0:// 图书序号
+                            bookMap.put("bookDetail",bookInfo.select("a").attr("href").toString());
+                            break;
+                        case 1:// 标题和链接
+                            bookMap.put("bookTitle", bookInfo.get(j).text());
+                            break;
+                        case 2:// 作者
+                            bookMap.put("bookAuthor", bookInfo.get(j).text());
+                            break;
+                        case 3:// 出版社
+                            bookMap.put("bookPublisher", bookInfo.get(j).text());
+                            break;
+                        case 4:// 索书号
+                            bookMap.put("bookCallno", bookInfo.get(j).text());
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                list.add(bookMap);
+            }
+        } catch (IOException e) {
+            // 解析失败！
+            e.printStackTrace();
+            System.out.println("Failed to Parse!");
+        }
+        return list;
+    }
 }

@@ -148,7 +148,7 @@ public class PersonalFragment extends Fragment {
                         "三楼:" + " 文科图书阅览区（中文图书A——H类）\n" + " \n" +
                         "四楼:" + " 文科图书阅览区（中文图书I——K类）、副馆长室\n" + " \n" +
                         "五楼:" + " 电子文献阅览区\n" + " \n" +
-                        "六楼:" + " 期刊和报纸阅览区\n" );
+                        "六楼:" + " 期刊和报纸阅览区" );
         card1.addCardExpand(expand);
         CardView cardView = (CardView) root.findViewById(R.id.buju);
         ViewToClickToExpand viewToClickToExpand =
@@ -177,8 +177,7 @@ public class PersonalFragment extends Fragment {
                 "周一至周五、周日:\n" +
                 "二层阅览区 " + " 08:30-22:00\n" +
                 "五层阅览区 " + " 09:30-21:30\n" +
-                "六层阅览区 " + " 09:30-21:30\n"
-
+                "六层阅览区 " + " 09:30-21:30"
                );
         card1.addCardExpand(expand);
         CardView cardView = (CardView)root.findViewById(R.id.gonggao);

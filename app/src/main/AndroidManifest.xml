@@ -37,6 +37,10 @@
             android:name=".jzlib.Activity.NativeListColorActivity"
             android:label="@string/title_activity_native_list_color" >
         </activity>
+        <activity
+            android:name=".jzlib.Activity.Classfy_Activity"
+            android:label="@string/title_activity_classfy_" >
+        </activity>
     </application>
 
 </manifest>

@@ -12,4 +12,5 @@
     <string name="login">登陆</string>
     <string name="title_activity_personal">PersonalActivity</string>
     <string name="title_activity_native_list_color">NativeListColorActivity</string>
+    <string name="title_activity_classfy_">Classfy_Activity</string>
 </resources>

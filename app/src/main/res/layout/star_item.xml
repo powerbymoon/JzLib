@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="3dp"
+        android:layout_marginLeft="6dp"
         android:text="xuliehao"
         android:textSize="16dp"
         android:layout_below="@+id/message_tv_bookname"
@@ -31,8 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/message_tv_Callno"
         android:text="kejie"
+        android:layout_marginLeft="6dp"
         android:padding="3dp"
-        android:textSize="16sp" />
+        android:textSize="16sp" android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,6 +42,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/message_tv_bookname"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="6dp"
         android:padding="3dp"
 
         />
@@ -52,7 +56,7 @@
         android:id="@+id/messgae_iv_star"
         android:background="@drawable/ic_star_selector"
         android:layout_centerVertical="true"
-        android:layout_marginRight="6dp"
+        android:layout_marginRight="8dp"
         android:layout_alignParentRight="true"
         />
 </RelativeLayout>

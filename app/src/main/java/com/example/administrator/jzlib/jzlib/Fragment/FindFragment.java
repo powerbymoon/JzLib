@@ -68,7 +68,7 @@ public class FindFragment extends Fragment {
     private String htmlpic="http://photo.blog.sina.com.cn/u/5704243491";
     final String HTML1 = "?strSearchType=title&match_flag=forward&historyCount=1&strText=";
     final String HTML2 = "&doctype=ALL&displaypg=20&showmode=list&sort=CATA_DATE&orderby=desc&dept=ALL";
-    SharedPreferences isCheck;
+    SharedPreferences isCheck=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,15 +121,25 @@ public class FindFragment extends Fragment {
         {
             article.setText(pre_article.getString("article",""));
         }
-        isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
-        if(isCheck==null&&isCheck.getString("fg","")==null) {
+       // isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
+        if(isCheck==null) {
+            isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
+            if(isCheck.getString("fg","").equals("1")){
+                img_love.setBackgroundResource(R.drawable.like_1);
+            }else if (isCheck.getString("fg","").equals("0")){
+                img_love.setBackgroundResource(R.drawable.like_0);
+                SharedPreferences.Editor edit1 = isCheck.edit();
+                edit1.putString("fg", "0");
+                edit1.commit();}
+            else{
             SharedPreferences.Editor edit1 = isCheck.edit();
             edit1.putString("fg", "0");
-            edit1.commit();
+            edit1.commit();}
         }
-        if(isCheck.getString("fg","").equals("1")){
-            img_love.setBackgroundResource(R.drawable.like_1);
-        }
+
+//        if(isCheck.getString("fg","").equals("1")){
+//            img_love.setBackgroundResource(R.drawable.like_1);
+//        }
         img_love.setOnClickListener(new View.OnClickListener() {
            // boolean flag=false;
             @Override
@@ -168,8 +178,7 @@ public class FindFragment extends Fragment {
 
     public void openSearch() {
         search.revealFromMenuItem(R.id.action_search, getActivity());
-
-
+        search.setLogoText("");
         search.setSearchListener(new SearchBox.SearchListener() {
 
             @Override

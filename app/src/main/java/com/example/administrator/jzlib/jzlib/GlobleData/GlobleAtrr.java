@@ -48,4 +48,23 @@ public class GlobleAtrr {
     public static Fragment mCurrentFragment;
     public static boolean isLogin = false;
     public static KJDB love_db;
+
+    public static final String SheHui = "http://opac.jluzh.com/top/top_lend.php?cls_no=C";
+    public static final String ZheXue = "http://opac.jluzh.com/top/top_lend.php?cls_no=B";
+    public static final String JunShi ="http://opac.jluzh.com/top/top_lend.php?cls_no=E";
+    public static final String JinJi ="http://opac.jluzh.com/top/top_lend.php?cls_no=F";
+    public static final String WenHua ="http://opac.jluzh.com/top/top_lend.php?cls_no=G";
+    public static final String YuYan ="http://opac.jluzh.com/top/top_lend.php?cls_no=H";
+    public static final String WenXue ="http://opac.jluzh.com/top/top_lend.php?cls_no=I";
+    public static final String YiShu ="http://opac.jluzh.com/top/top_lend.php?cls_no=J";
+    public static final String LiShi ="http://opac.jluzh.com/top/top_lend.php?cls_no=K";
+    public static final String ZiRang ="http://opac.jluzh.com/top/top_lend.php?cls_no=N";
+    public static final String ShuLi ="http://opac.jluzh.com/top/top_lend.php?cls_no=O";
+    public static final String TianWen ="http://opac.jluzh.com/top/top_lend.php?cls_no=P";
+    public static final String dongwu="http://opac.jluzh.com/top/top_lend.php?cls_no=Q";
+    public static final String zhiwu="http://opac.jluzh.com/top/top_lend.php?cls_no=S";
+    public static final String yiyao="http://opac.jluzh.com/top/top_lend.php?cls_no=R";
+    public static final String gongye="http://opac.jluzh.com/top/top_lend.php?cls_no=T";
+    public static final String zonghe="http://opac.jluzh.com/top/top_lend.php?cls_no=Z";
+    public static final String MaLie = "http://opac.jluzh.com/top/top_lend.php?cls_no=A";
 }

@@ -38,7 +38,6 @@ import org.apache.http.util.EntityUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class LoginActivity extends AppCompatActivity {
         private EditText captcha;
         private ImageView imageView;
