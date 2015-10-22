@@ -176,12 +176,7 @@ public class GoogleNowStockCardwithList extends CardWithList {
 
         private void init() {
             //OnClick Listener
-            setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(LinearListView parent, View view, int position, ListObject object) {
-                    Toast.makeText(getContext(), "Click on " + getObjectId(), Toast.LENGTH_SHORT).show();
-                }
-            });
+
         }
 
         @Override

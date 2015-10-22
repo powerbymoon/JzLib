@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.jzlib.R;
@@ -35,6 +36,7 @@ public class MybookFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private CardListView messageCardLv;
     View view;
+    TextView status;
     public Progress pDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class MybookFragment extends Fragment {
        // Toast.makeText(getActivity(), "lalalawowowowo", Toast.LENGTH_SHORT).show();
         view=inflater.inflate(R.layout.fragment_mybook, container, false);
         messageCardLv = (CardListView) view.findViewById(R.id.message_cardlv_message);
+        status=(TextView)view.findViewById(R.id.status);
         initProgress();
         BorrowedBook bb = new BorrowedBook();
         bb.execute();
@@ -66,8 +69,10 @@ public class MybookFragment extends Fragment {
         protected void onPostExecute(List<Map<String, Object>> result) {
             // TODO Auto-generated method stub
             System.out.println(result);
-            pDialog.cancel();
-            if(result==null){}
+            //pDialog.cancel();
+            if(result==null){
+                status.setText("当前没有任何借阅");
+            }
             else{
            // mypDialog.cancel();
             //for(int i,i<result.size(),i++)
@@ -82,7 +87,7 @@ public class MybookFragment extends Fragment {
         protected void onPreExecute() {
             // TODO Auto-generated method stub
           //  mypDialog.show();
-            pDialog.show();
+          //  pDialog.show();
             super.onPreExecute();
         }
 

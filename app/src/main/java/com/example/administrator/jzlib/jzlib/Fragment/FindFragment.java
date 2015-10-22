@@ -69,6 +69,7 @@ public class FindFragment extends Fragment {
     final String HTML1 = "?strSearchType=title&match_flag=forward&historyCount=1&strText=";
     final String HTML2 = "&doctype=ALL&displaypg=20&showmode=list&sort=CATA_DATE&orderby=desc&dept=ALL";
     SharedPreferences isCheck=null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class FindFragment extends Fragment {
         {
            kjb.display(pic,pre_article.getString("pic_url",""));
         }
-        mTextView = (TextView) view.findViewById(R.id.tv_article);
+      //  mTextView = (TextView) view.findViewById(R.id.tv_article);
         date=(TextView)view.findViewById(R.id.tv_date);
         smallDate=(TextView)view.findViewById(R.id.date_small);
         name=(TextView)view.findViewById(R.id.zuozhe);
@@ -122,20 +123,18 @@ public class FindFragment extends Fragment {
             article.setText(pre_article.getString("article",""));
         }
        // isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
-        if(isCheck==null) {
-            isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
-            if(isCheck.getString("fg","").equals("1")){
+
+        isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
+           if(isCheck.getString("fg","").equals("1")){
                 img_love.setBackgroundResource(R.drawable.like_1);
             }else if (isCheck.getString("fg","").equals("0")){
                 img_love.setBackgroundResource(R.drawable.like_0);
-                SharedPreferences.Editor edit1 = isCheck.edit();
-                edit1.putString("fg", "0");
-                edit1.commit();}
+             }
             else{
             SharedPreferences.Editor edit1 = isCheck.edit();
             edit1.putString("fg", "0");
             edit1.commit();}
-        }
+
 
 //        if(isCheck.getString("fg","").equals("1")){
 //            img_love.setBackgroundResource(R.drawable.like_1);
@@ -152,12 +151,13 @@ public class FindFragment extends Fragment {
                     SharedPreferences.Editor edit1=isCheck.edit();
                     edit1.putString("fg","1");
                     edit1.commit();
-               // GlobleMeth.showToast(getActivity(),"收藏成功");
+                  // GlobleMeth.showToast(getActivity(),"收藏成功");
                 GlobleAtrr.HeartFrag.loadMessage();}
                 else{
                     GlobleAtrr.mListViewLove.addAll(GlobleAtrr.love_db.findAll(LoveBeen.class));
                     int positon=GlobleAtrr.mListViewLove.size()-1;
-                    GlobleAtrr.love_db.delete(GlobleAtrr.mListViewLove.get(positon));
+                    if(positon>=0){
+                    GlobleAtrr.love_db.delete(GlobleAtrr.mListViewLove.get(positon));}
                     img_love.setBackgroundResource(R.drawable.like_0);
                     SharedPreferences.Editor edit1=isCheck.edit();
                     edit1.putString("fg","0");
@@ -349,10 +349,17 @@ public class FindFragment extends Fragment {
             }
             @Override
             protected void onPostExecute(String result) {
+                if(result.equals(pre_article.getString("article","")))
+                {
+                }else{
                 article.setText(result);
+                    img_love.setBackgroundResource(R.drawable.like_0);
+                    SharedPreferences.Editor edit1=isCheck.edit();
+                    edit1.putString("fg","0");
+                    edit1.commit();
                 SharedPreferences.Editor edit = pre_article.edit();
                 edit.putString("article",result);
-                edit.commit();
+                edit.commit();}
             }
         }
     }

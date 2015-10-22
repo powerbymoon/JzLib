@@ -164,7 +164,7 @@ public class PersonalFragment extends Fragment {
     private void init_custom_card_expand_inside() {
         Personal_Card card1 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
         card1.setName("开馆时间");
-        Drawable dra=getResources().getDrawable(R.drawable.ic_message_black_48dp);
+        Drawable dra=getResources().getDrawable(R.drawable.ic_access_time_teal_300_48dp);
         card1.setDraw(dra);
         CardExpand expand = new CardExpand(GlobleAtrr.a);
         expand.setTitle("周一至周日:\n" +
@@ -194,8 +194,9 @@ public class PersonalFragment extends Fragment {
         Drawable dra=getResources().getDrawable(R.drawable.ic_info_deep_purple_200_48dp);
         card1.setDraw(dra);
         CardExpand expand = new CardExpand(GlobleAtrr.a);
-        expand.setTitle("作者：Moon\n" +
-                "如有任何意见或建议，欢迎致邮：916012040@qq.com");
+        expand.setTitle("这是一款图书馆助手App，希望给喜欢借阅图书的同学带来方便。\n" +"如有任何摄影作品或者图书心得，欢迎投稿至：jzlib@sina.cn\n"+
+                "如有任何意见或建议，欢迎致邮：iamlinman@sina.cn\n"+"作者：Moon"
+        +"");
         card1.addCardExpand(expand);
         CardView cardView = (CardView)root.findViewById(R.id.about);
         ViewToClickToExpand viewToClickToExpand =

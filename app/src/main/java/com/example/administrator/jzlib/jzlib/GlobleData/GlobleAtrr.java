@@ -1,5 +1,6 @@
 package com.example.administrator.jzlib.jzlib.GlobleData;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -67,4 +68,5 @@ public class GlobleAtrr {
     public static final String gongye="http://opac.jluzh.com/top/top_lend.php?cls_no=T";
     public static final String zonghe="http://opac.jluzh.com/top/top_lend.php?cls_no=Z";
     public static final String MaLie = "http://opac.jluzh.com/top/top_lend.php?cls_no=A";
+
 }

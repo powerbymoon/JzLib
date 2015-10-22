@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,17 +36,42 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class Classfy_Activity extends AppCompatActivity {
     String url0="http://opac.jluzh.com/opac/";
 
-    private String html;
+    private String html,f;
     private CardListView messageCardLv;
     public Progress pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classfy_);
+        RelativeLayout r= (RelativeLayout) findViewById(R.id.r);
         initUI();
         initProgress();
         Intent intent = this.getIntent();
         html = intent.getStringExtra("url");
+        f=intent.getStringExtra("flog");
+        switch (f)
+        {
+            case "0": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color9)); break;
+            case "1": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color8)); break;
+            case "2": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color7)); break;
+            case "3": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color6)); break;
+            case "4": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color5)); break;
+            case "5": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color4)); break;
+            case "6": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color3)); break;
+            case "7": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color2)); break;
+            case "8": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color1)); break;
+            case "9": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color10)); break;
+            case "10": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color8)); break;
+            case "11": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color7)); break;
+            case "12": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color6)); break;
+            case "13": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color5)); break;
+            case "14": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color4)); break;
+            case "15": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color3)); break;
+            case "16": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color2)); break;
+            case "17": r.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color1)); break;
+
+        }
+
         new LoadBookInfo_classify().execute(html);
         JsoupUtil.clearInfo();
     }
