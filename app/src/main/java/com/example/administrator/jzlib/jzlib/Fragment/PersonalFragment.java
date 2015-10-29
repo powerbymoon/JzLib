@@ -194,8 +194,8 @@ public class PersonalFragment extends Fragment {
         Drawable dra=getResources().getDrawable(R.drawable.ic_info_deep_purple_200_48dp);
         card1.setDraw(dra);
         CardExpand expand = new CardExpand(GlobleAtrr.a);
-        expand.setTitle("这是一款图书馆助手App，希望给喜欢借阅图书的同学带来方便。\n" +"如有任何摄影作品或者图书心得，欢迎投稿至：jzlib@sina.cn\n"+
-                "如有任何意见或建议，欢迎致邮：iamlinman@sina.cn\n"+"作者：Moon"
+        expand.setTitle("这是一款图书馆助手App，希望给喜欢借阅图书的同学带来方便。\n" +"如有任何摄影作品或读书心得希望在首页展示，欢迎致邮：jzlib@sina.cn\n"+
+                "如有任何意见或建议，欢迎致邮：916012040@qq.com\n"+"作者：Moon"
         +"");
         card1.addCardExpand(expand);
         CardView cardView = (CardView)root.findViewById(R.id.about);

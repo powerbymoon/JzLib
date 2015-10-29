@@ -34,7 +34,7 @@ import org.apache.http.*;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.AbstractHttpClient;
-import org.apache.http.params.HttpParams;
+import org.apache.http.params .HttpParams;
 import org.apache.http.util.EntityUtils;
 import java.util.HashMap;
 import java.util.Map;
@@ -262,13 +262,15 @@ public class LoginActivity extends AppCompatActivity {
                     }, 1400);
                     loginButton.setProgress(100);
                 } else {
+                    loginButton.setErrorText(GlobleAtrr.login_status);
                     loginButton.setProgress(-1);
                     loginButton.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loginButton.setProgress(0);
                         }
-                    }, 700);
+                    }, 1800);
+                   // GlobleMeth.showToast(LoginActivity.this,GlobleAtrr.login_status);
                   //  GlobleMeth.showToast(getApplicationContext(), "请检查是否输入有误");
                 }
                 super.onPostExecute(result);

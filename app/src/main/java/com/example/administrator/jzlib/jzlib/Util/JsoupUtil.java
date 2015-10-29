@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.administrator.jzlib.jzlib.Been.StudentInfo;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
+import com.example.administrator.jzlib.jzlib.GlobleData.GlobleMeth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -262,17 +263,19 @@ public class JsoupUtil {
             //Document doc = Jsoup.connect(GlobleData.Info_URL).cookie("PHPSESSID", GlobleData.cookies).timeout(30 * 1000).get();
             // System.out.println("doc :" + doc);
             // 判断是否登录成功
+
             String status1 = doc.select("td[colspan=2]").select("font[color=red]").text()
                     .toString();
             if (status1.equals("验证码错误(wrong check code)")) {
                 Log.d("DEBUG", "验证码错误" + status1);
+                GlobleAtrr.login_status="验证码错误,点击验证码可进行刷新。";
+                return false;
             }
-            //Log.d("DEBUG", "验证码错误"+status1);
             String status = doc.select("a[href=../reader/login.php]").text()
                     .toString();
-
             if (status.equals("登录")) {
                 System.out.println("登录失败，请检查账号和密码！");
+                GlobleAtrr.login_status="登录失败，请检查账号和密码！";
                 return false;
             } else {
                 System.out.println("登录成功！");
@@ -466,7 +469,7 @@ public class JsoupUtil {
             //<li><a href="http://book.douban.com/isbn/7-100-00904-9/" target="_blank">
             s = em.select("img").attr("src").toString();
             name=em.select("img").attr("title").toString();
-            s1=s.replaceAll("small","");
+            s1=s.replaceAll("small","orignal");
 
             map.put("url",s1);
             map.put("althor",name);
