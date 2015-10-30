@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -45,11 +46,15 @@ import org.kymjs.kjframe.bitmap.BitmapMemoryCache;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 /**
  * Created by Administrator on 2015/9/15.
  */
 public class FindFragment extends Fragment {
     KJBitmap kjb;
+    private MaterialDialog commentMd;
+    private View commentV;
     SharedPreferences pre_article;
     private SearchBox search;
     private Toolbar toolbar;
@@ -63,12 +68,12 @@ public class FindFragment extends Fragment {
     ImageView pic;
     View view;
     TextView article;
-    private FinalBitmap fbimg=null;
     String html_art="http://blog.sina.com.cn/s/articlelist_5704243491_0_1.html";
     private String htmlpic="http://photo.blog.sina.com.cn/u/5704243491";
     final String HTML1 = "?strSearchType=title&match_flag=forward&historyCount=1&strText=";
     final String HTML2 = "&doctype=ALL&displaypg=20&showmode=list&sort=CATA_DATE&orderby=desc&dept=ALL";
-    SharedPreferences isCheck;
+    SharedPreferences isCheck=null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,16 +107,36 @@ public class FindFragment extends Fragment {
     }
 
     private void init() {
-        kjb=new KJBitmap();
         pre_article= getActivity().getSharedPreferences("pre_article", Context.MODE_APPEND);
-        fbimg  = FinalBitmap.create(getActivity().getApplicationContext());
+        commentV = View.inflate(getActivity(), R.layout.comment_material_dialog, null);
+        commentMd = new MaterialDialog(getActivity()).setTitle("保存图片").setContentView(commentV).setPositiveButton("确认", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//substring(33)
+                kjb.saveImage(getActivity(),pre_article.getString("pic_url", ""),GlobleAtrr.FilepathPic+pre_article.getString("pic_url", "").substring(33));
+                  Toast.makeText(getActivity(), "保存成功至:"+GlobleAtrr.FilepathPic, Toast.LENGTH_SHORT).show();
+                commentMd.dismiss();
+            }
+        }).setNegativeButton("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //  Toast.makeText(getActivity(), "取消", Toast.LENGTH_SHORT).show();
+                commentMd.dismiss();
+            }
+        });
+        kjb=new KJBitmap();
         pic=(ImageView) view.findViewById(R.id.imageView_pic);
         img_love=(ImageButton)view.findViewById(R.id.mb_love);
         if (pre_article!=null&&!pre_article.getString("pic_url","").isEmpty())
         {
            kjb.display(pic,pre_article.getString("pic_url",""));
+            pic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    commentMd.show();
+                }
+            });
         }
-        mTextView = (TextView) view.findViewById(R.id.tv_article);
+      //  mTextView = (TextView) view.findViewById(R.id.tv_article);
         date=(TextView)view.findViewById(R.id.tv_date);
         smallDate=(TextView)view.findViewById(R.id.date_small);
         name=(TextView)view.findViewById(R.id.zuozhe);
@@ -121,15 +146,23 @@ public class FindFragment extends Fragment {
         {
             article.setText(pre_article.getString("article",""));
         }
+       // isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
+
         isCheck= getActivity().getSharedPreferences("isCheck", getActivity().MODE_APPEND);
-        if(isCheck==null&&isCheck.getString("fg","")==null) {
+           if(isCheck.getString("fg","").equals("1")){
+                img_love.setBackgroundResource(R.drawable.like_1);
+            }else if (isCheck.getString("fg","").equals("0")){
+                img_love.setBackgroundResource(R.drawable.like_0);
+             }
+            else{
             SharedPreferences.Editor edit1 = isCheck.edit();
             edit1.putString("fg", "0");
-            edit1.commit();
-        }
-        if(isCheck.getString("fg","").equals("1")){
-            img_love.setBackgroundResource(R.drawable.like_1);
-        }
+            edit1.commit();}
+
+
+//        if(isCheck.getString("fg","").equals("1")){
+//            img_love.setBackgroundResource(R.drawable.like_1);
+//        }
         img_love.setOnClickListener(new View.OnClickListener() {
            // boolean flag=false;
             @Override
@@ -142,12 +175,13 @@ public class FindFragment extends Fragment {
                     SharedPreferences.Editor edit1=isCheck.edit();
                     edit1.putString("fg","1");
                     edit1.commit();
-               // GlobleMeth.showToast(getActivity(),"收藏成功");
+                  // GlobleMeth.showToast(getActivity(),"收藏成功");
                 GlobleAtrr.HeartFrag.loadMessage();}
                 else{
                     GlobleAtrr.mListViewLove.addAll(GlobleAtrr.love_db.findAll(LoveBeen.class));
                     int positon=GlobleAtrr.mListViewLove.size()-1;
-                    GlobleAtrr.love_db.delete(GlobleAtrr.mListViewLove.get(positon));
+                    if(positon>=0){
+                    GlobleAtrr.love_db.delete(GlobleAtrr.mListViewLove.get(positon));}
                     img_love.setBackgroundResource(R.drawable.like_0);
                     SharedPreferences.Editor edit1=isCheck.edit();
                     edit1.putString("fg","0");
@@ -168,8 +202,7 @@ public class FindFragment extends Fragment {
 
     public void openSearch() {
         search.revealFromMenuItem(R.id.action_search, getActivity());
-
-
+        search.setLogoText("");
         search.setSearchListener(new SearchBox.SearchListener() {
 
             @Override
@@ -236,80 +269,25 @@ public class FindFragment extends Fragment {
         @Override
         protected void onPostExecute(Map<String,String> result)
         {
-//            RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
-//            //final LruCache<String,Bitmap> mImageCache = new LruCache<String, Bitmap>(20);
-//
-//             class BitmapCache implements ImageLoader.ImageCache {
-//                private LruCache<String, Bitmap> mCache;
-//                public BitmapCache() {
-//                    int maxSize = 20 * 1024 * 1024;
-//                    mCache = new LruCache<String, Bitmap>(maxSize) {
-//                        @Override
-//                        protected int sizeOf(String key, Bitmap bitmap) {
-//                            return bitmap.getRowBytes() * bitmap.getHeight();
-//                        }
-//                    };
-//                }
-//                @Override
-//                public Bitmap getBitmap(String url) {
-//                    return mCache.get(url);
-//                }
-//                @Override
-//                public void putBitmap(String url, Bitmap bitmap) {
-//                    mCache.put(url, bitmap);
-//                }
-//            }
-//            ImageLoader mImageLoader = new ImageLoader(mRequestQueue,new BitmapCache());
-//            // ImageLoader.getImageListener�ĵڶ���������Ĭ�ϵ�ͼƬresource id
-//            // ���������������ʧ��ʱ�����Դid������ָ��Ϊ0
-//            ImageLoader.ImageListener listener = ImageLoader.getImageListener(pic, 0, 0);
-//           // mImageCache.put("", mImageLoader.get(result, listener));
-//            mImageLoader.get(result.get("url"), listener);
-
-           // pic.setImageBitmap(kjb.getMemoryCache(result.get("url")));
-            kjb.display(pic,result.get("url"));
-            SharedPreferences.Editor edit = pre_article.edit();
-            edit.putString("pic_url",result.get("url"));
-            edit.commit();
-            name.setText(result.get("althor"));
+            if(result.equals(pre_article.getString("pic_url",""))){
+                name.setText(result.get("althor"));
+            }
+            else {
+                kjb.display(pic, result.get("url"));
+                pic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        commentMd.show();
+                    }
+                });
+                SharedPreferences.Editor edit = pre_article.edit();
+                edit.putString("pic_url", result.get("url"));
+                edit.commit();
+                name.setText(result.get("althor"));
+            }
         }
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        GlobleMeth.showToast(getActivity(),"onStart");
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        GlobleMeth.showToast(getActivity(),"onResume");
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        GlobleMeth.showToast(getActivity(),"onPause");
-//    }
-//
-//     @Override
-//    public void onStop() {
-//        super.onStop();
-//        GlobleMeth.showToast(getActivity(),"onStop");
-//    }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        GlobleMeth.showToast(getActivity(),"onDestroyView");
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        GlobleMeth.showToast(getActivity(),"onDestroy");
-//    }
 
 
     private class initArticle extends
@@ -340,10 +318,18 @@ public class FindFragment extends Fragment {
             }
             @Override
             protected void onPostExecute(String result) {
+                if(result.equals(pre_article.getString("article","")))
+                {
+                }else{
+                    result.trim();
                 article.setText(result);
+                    img_love.setBackgroundResource(R.drawable.like_0);
+                    SharedPreferences.Editor edit1=isCheck.edit();
+                    edit1.putString("fg","0");
+                    edit1.commit();
                 SharedPreferences.Editor edit = pre_article.edit();
                 edit.putString("article",result);
-                edit.commit();
+                edit.commit();}
             }
         }
     }

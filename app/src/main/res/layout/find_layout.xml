@@ -17,18 +17,22 @@
         android:layout_height="1dp"
         android:background="#20000000"
         />
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
       >
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView_pic"
-        android:background="@drawable/pic"
+        android:background="@drawable/pic_bg"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -37,7 +41,7 @@
             android:layout_height="1dp"
             android:layout_below="@+id/imageView_pic"
             android:background="#20000000"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:id="@+id/view_0"
             />
 
@@ -46,12 +50,13 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="25"
-            android:textSize="40dp"
+            android:textSize="42dp"
             android:textStyle="bold"
             android:id="@+id/tv_date"
             android:textColor="#18b5ea"
+            android:layout_marginTop="2dp"
             android:layout_alignTop="@+id/view_0"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="12dp"
            />
 
         <TextView
@@ -76,7 +81,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
             android:layout_below="@+id/tv_date"
             android:background="#20000000"
             android:id="@+id/view_1"
@@ -86,18 +91,18 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="14dp"
     android:layout_marginLeft="14dp"
-    android:layout_marginRight="12dp"
+    android:layout_marginRight="14dp"
     android:layout_below="@+id/view_1"
     android:id="@+id/relativeLayout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="不管全世界所有人怎么说，我都认为自己的感受才是正确的。无论别人怎么看，我绝不打乱自己的节奏。喜欢的事自然可以坚持,不喜欢怎么也长久不了。——村上春树"
+            android:lineSpacingMultiplier="1.2"
+            android:textScaleX="1"
+            android:text="..."
             android:id="@+id/tv_article"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
             android:textSize="17dp"
-            android:scrollbars = "vertical"
             />
 
 </RelativeLayout>
@@ -130,5 +135,6 @@
 
 
     </RelativeLayout>
+</ScrollView>
 </LinearLayout>
 <!--</ScrollView>-->

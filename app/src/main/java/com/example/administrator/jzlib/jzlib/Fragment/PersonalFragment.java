@@ -148,7 +148,7 @@ public class PersonalFragment extends Fragment {
                         "三楼:" + " 文科图书阅览区（中文图书A——H类）\n" + " \n" +
                         "四楼:" + " 文科图书阅览区（中文图书I——K类）、副馆长室\n" + " \n" +
                         "五楼:" + " 电子文献阅览区\n" + " \n" +
-                        "六楼:" + " 期刊和报纸阅览区\n" );
+                        "六楼:" + " 期刊和报纸阅览区" );
         card1.addCardExpand(expand);
         CardView cardView = (CardView) root.findViewById(R.id.buju);
         ViewToClickToExpand viewToClickToExpand =
@@ -164,7 +164,7 @@ public class PersonalFragment extends Fragment {
     private void init_custom_card_expand_inside() {
         Personal_Card card1 = new Personal_Card(GlobleAtrr.a,R.layout.personal_card_layout);
         card1.setName("开馆时间");
-        Drawable dra=getResources().getDrawable(R.drawable.ic_message_black_48dp);
+        Drawable dra=getResources().getDrawable(R.drawable.ic_access_time_teal_300_48dp);
         card1.setDraw(dra);
         CardExpand expand = new CardExpand(GlobleAtrr.a);
         expand.setTitle("周一至周日:\n" +
@@ -177,8 +177,7 @@ public class PersonalFragment extends Fragment {
                 "周一至周五、周日:\n" +
                 "二层阅览区 " + " 08:30-22:00\n" +
                 "五层阅览区 " + " 09:30-21:30\n" +
-                "六层阅览区 " + " 09:30-21:30\n"
-
+                "六层阅览区 " + " 09:30-21:30"
                );
         card1.addCardExpand(expand);
         CardView cardView = (CardView)root.findViewById(R.id.gonggao);
@@ -195,8 +194,9 @@ public class PersonalFragment extends Fragment {
         Drawable dra=getResources().getDrawable(R.drawable.ic_info_deep_purple_200_48dp);
         card1.setDraw(dra);
         CardExpand expand = new CardExpand(GlobleAtrr.a);
-        expand.setTitle("作者：Moon\n" +
-                "如有任何意见或建议，欢迎致邮：916012040@qq.com");
+        expand.setTitle("这是一款图书馆助手App，希望给喜欢借阅图书的同学带来方便。\n" +"如有任何摄影作品或读书心得希望在首页展示，欢迎致邮：jzlib@sina.cn\n"+
+                "如有任何意见或建议，欢迎致邮：916012040@qq.com\n"+"作者：Moon"
+        +"");
         card1.addCardExpand(expand);
         CardView cardView = (CardView)root.findViewById(R.id.about);
         ViewToClickToExpand viewToClickToExpand =

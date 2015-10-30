@@ -23,6 +23,7 @@ import com.dd.CircularProgressButton;
 import com.example.administrator.jzlib.R;
 import com.example.administrator.jzlib.jzlib.Been.StudentInfo;
 import com.example.administrator.jzlib.jzlib.Dialog.PersonalDemo;
+import com.example.administrator.jzlib.jzlib.Dialog.Progress;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleAtrr;
 import com.example.administrator.jzlib.jzlib.GlobleData.GlobleMeth;
 import com.example.administrator.jzlib.jzlib.Util.JsoupUtil;
@@ -33,11 +34,12 @@ import org.apache.http.*;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.AbstractHttpClient;
-import org.apache.http.params.HttpParams;
+import org.apache.http.params .HttpParams;
 import org.apache.http.util.EntityUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity {
         private EditText captcha;
@@ -47,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         private EditText loginNumber;
         private EditText loginKey;
        private CheckBox reck;
+    public Progress pDialog;
        // private ProgressDialog mypDialog;
         private Map<String,String> map = new HashMap<String,String>();
     SharedPreferences account;
@@ -86,6 +89,9 @@ public class LoginActivity extends AppCompatActivity {
                     );
 
         }
+    private void initProgress() {
+        pDialog=new Progress(this, SweetAlertDialog.PROGRESS_TYPE);
+    }
         class  InitCaptcha extends AsyncTask<String,String, Bitmap> {
             @Override
             protected void onPreExecute() {
@@ -135,9 +141,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
         void init(){
+
             captcha = (EditText) findViewById(R.id.login_et_captcha);
+            captcha.setText("");
             loginNumber = (EditText) findViewById(R.id.login_et_phone);
+            loginNumber.setText("");
             loginKey = (EditText) findViewById(R.id.login_et_code);
+            loginKey.setText("");
             account= getSharedPreferences("account", MODE_APPEND);
             isCheck= getSharedPreferences("isCheck", MODE_APPEND);
             reck = (CheckBox) findViewById(R.id.checkBox);
@@ -175,8 +185,8 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loginButton.setProgress(50);
                     // TODO Auto-generated method stub
+
                     String number = loginNumber.getText().toString();
                     String passwd = loginKey.getText().toString();
                     String scaptcha = captcha.getText().toString();
@@ -184,7 +194,6 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor edit = account.edit();
                     SharedPreferences.Editor edit1=isCheck.edit();
                     if(reck.isCheck()){
-
                         //String user = pre.getString("number", "");
                       //  SharedPreferences.Editor edit1=isCheck.edit();
                         edit1.putString("fg","1");
@@ -217,15 +226,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 // TODO Auto-generated method stub
-               // mypDialog.show();
-
+                initProgress();
+                pDialog.show();
                 super.onPreExecute();
             }
 
             @Override
             protected void onProgressUpdate(Integer... values) {
                 // TODO Auto-generated method stub
-             //   loginButton.setProgress(50);
+
                 super.onProgressUpdate(values);
             }
             @Override
@@ -238,7 +247,7 @@ public class LoginActivity extends AppCompatActivity {
             protected void onPostExecute(Boolean result) {
                 // TODO Auto-generated method stub
                // mypDialog.cancel();
-
+                pDialog.cancel();
                 if (result) {
                     GlobleAtrr.isLogin = true;
                     //loginButton.setProgress(50);
@@ -250,16 +259,18 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(i);
                             LoginActivity.this.finish();
                         }
-                    }, 1800);
+                    }, 1400);
                     loginButton.setProgress(100);
                 } else {
+                    loginButton.setErrorText(GlobleAtrr.login_status);
                     loginButton.setProgress(-1);
                     loginButton.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loginButton.setProgress(0);
                         }
-                    }, 1200);
+                    }, 1800);
+                   // GlobleMeth.showToast(LoginActivity.this,GlobleAtrr.login_status);
                   //  GlobleMeth.showToast(getApplicationContext(), "请检查是否输入有误");
                 }
                 super.onPostExecute(result);

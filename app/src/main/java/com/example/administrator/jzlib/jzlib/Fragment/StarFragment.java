@@ -82,7 +82,7 @@ public class StarFragment  extends Fragment {
     private ArrayList<Card> initCards() {
         ArrayList<Card> cards = new ArrayList<>();
         if (GlobleAtrr.mListViewData.size() > 0) {
-            for (int i = 0; i < GlobleAtrr.mListViewData.size(); i++) {
+            for (int i = GlobleAtrr.mListViewData.size()-1; i >= 0; i--) {
                 cards.add(makecard(GlobleAtrr.mListViewData.get(i).getBookName(),
                         GlobleAtrr.mListViewData.get(i).getBookNum(),GlobleAtrr.mListViewData.get(i).getBookAthor(),GlobleAtrr.mListViewData.get(i).getBookDetail(),i));
             }

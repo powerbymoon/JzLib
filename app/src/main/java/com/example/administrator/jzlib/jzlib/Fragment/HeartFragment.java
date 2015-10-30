@@ -61,7 +61,7 @@ public class HeartFragment  extends Fragment {
     private ArrayList<Card> initCards() {
         ArrayList<Card> cards = new ArrayList<>();
         if (GlobleAtrr.mListViewLove.size() > 0) {
-            for (int i = 0; i < GlobleAtrr.mListViewLove.size(); i++) {
+            for (int i = GlobleAtrr.mListViewLove.size()-1; i >=0; i--) {
                 cards.add(makecard(GlobleAtrr.mListViewLove.get(i).getS(),i));
             }
         }

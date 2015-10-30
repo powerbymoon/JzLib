@@ -153,7 +153,7 @@ public class ResultActivity extends ActionBarActivity{
                 //  toolbar.setTitle(searchTerm);
                 String str = null;
                 try {
-                    str = new String(searchTerm.trim().getBytes(), "ISO-8859-1");
+                    str = new String(searchTerm.trim().getBytes(), "utf-8");
                     html = GlobleAtrr.MAIN_URL + HTML1 + str + HTML2;
                     new LoadBookInfo().execute(html);
                 } catch (UnsupportedEncodingException e) {
